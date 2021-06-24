@@ -1,0 +1,26 @@
+---
+    - name: install required programs
+      hosts: pi
+      remote_user: ubuntu
+      vars_files:
+          vars.yml
+
+      tasks:
+      - name: install required programs
+        apt:
+            name: davfs2
+            state: present
+        become: true
+
+
+    - name: setup radicale
+      hosts: pi
+      remote_user: ubuntu
+      vars_files:
+          vars.yml
+
+      tasks:
+      - name: create folder for webdav
+        file:
+            path: '{{ dav_dir_path }}'
+            state: directory

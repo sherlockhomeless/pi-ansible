@@ -1,0 +1,4 @@
+dav_dir_path: /home/pi/remote-shares/
+programs:
+    - davfs2
+    - docker.io
