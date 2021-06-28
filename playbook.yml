@@ -1,5 +1,6 @@
 ---
-    - name: install required programs
+    # todo: make rule "usable" or smth with all conveniet shit installing
+    - name: make host useable
       hosts: pi
       remote_user: ubuntu
       vars_files:
@@ -8,19 +9,26 @@
       tasks:
       - name: install required programs
         apt:
-            name: davfs2
+            name: '{{ programs }}'
             state: present
         become: true
+      - name: enable dockerd
+        ansible.builtin.systemd:
+            enabled: yes
+            name: docker
+        become: true
+      - name: add user to dockergroup
+        user:
+            name: ubuntu
+            group: docker
+            state: present
+        become: yes
 
 
     - name: setup radicale
       hosts: pi
       remote_user: ubuntu
-      vars_files:
-          vars.yml
-
-      tasks:
-      - name: create folder for webdav
-        file:
-            path: '{{ dav_dir_path }}'
-            state: directory
+      roles:
+        #  - webdav
+        #  - radicale
+        - dyndns

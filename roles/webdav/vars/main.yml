@@ -1,0 +1,4 @@
+dav_dir_path: /home/ubuntu/remote-shares
+hosting_de_path: /home/ubuntu/remote-shares/hosting_de
+dav_secrets: /etc/davfs2/secrets
+hosting_de_url: https://210624orxiqv6uu74bi.nextcloud.hosting.zone/remote.php/dav/files/sherlock.homeless@gmx.de/

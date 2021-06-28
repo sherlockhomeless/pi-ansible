@@ -1,0 +1,13 @@
+---
+  - name: install ddclient
+    apt:
+        name: ddclient
+        state: present
+    become: yes
+
+  - name: copy config zu ddclient
+    ansible.builtin.copy:
+        src: "{{ private_ddclient }}"
+        dest: /etc/ddclient.conf
+    become: yes
+  #systemctl enable ddclient.service

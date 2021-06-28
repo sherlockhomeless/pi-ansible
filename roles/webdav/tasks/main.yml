@@ -1,0 +1,25 @@
+---
+  - name: create base folder
+    file:
+      path: '{{ dav_dir_path }}'
+      state: directory
+  - name: create folder for hosting.de
+    file:
+        path: "{{ hosting_de_path }}"
+        state: directory
+  - name: copy secrets file
+    ansible.builtin.copy:
+        src: secrets
+        dest: "{{ dav_secrets }}"
+        mode: '600'
+        owner: root
+    become: yes
+
+  - name: update fstab to include hosting.de
+    ansible.posix.mount:
+        src: "{{ hosting_de_url }}"
+        path: "{{ hosting_de_path }}"
+        fstype: davfs
+        opts: rw,user,noauto
+        state: present
+    become: yes
