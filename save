@@ -1,0 +1,42 @@
+  - name: check if radicale folder already exists
+    stat:
+        path: "{{ radicale_path }}"
+    register: radicale_here
+
+  - name: creates radicale foldes in etc
+    file:
+        path: /etc/radicale/
+        state: directory
+    become: yes
+
+  - name: create users file
+    ansible.builtin.copy:
+        src: "{{ original_users }}"
+        dest: /etc/radicale/users
+    become: yes
+
+  - name: clone radicale docker-compose repo
+    ansible.builtin.git:
+        repo: https://github.com/tomsquest/docker-radicale.git
+        dest: "{{ repo_path }}"
+        force: no
+    when: not radicale_here.stat.exists
+
+  - name: replace docker compase file with changed one
+    ansible.builtin.copy:
+        src: docker_compose.yml
+        dest: "{{ compose_path }}"
+
+  - name: copy config file
+    ansible.builtin.copy:
+        src:  config
+        dest: "{{ radicale_config_path }}"
+
+  - name: docker compose up
+    docker_compose:
+        project_src: "{{ repo_path }}"
+
+  - name: debug msg
+    debug:
+        msg: left to do is to copy users file to /etc/radicale/users & copy old data into ~/radicale/data
+

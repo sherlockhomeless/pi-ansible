@@ -1,42 +1,36 @@
 ---
-  - name: check if radicale folder already exists
-    stat:
-        path: "{{ radicale_path }}"
-    register: radicale_here
+  - name: Role for installing the radicale caldav-server
+    debug:
+        msg: start installing radicale
 
-  - name: creates radicale foldes in etc
-    file:
-        path: /etc/radicale/
+  - name: install pip3
+    apt:
+        name: python3-pip
+        state: present
+        update_cache: yes
+    become: yes
+
+  - name: install radicale
+    pip:
+        name: radicale
+        state: present
+
+  - name: create config folder
+    ansible.builtin.file:
+        path: "{{ radicale_user_config_path }}"
+        owner: radicale
         state: directory
     become: yes
 
-  - name: create users file
+  - name: copy configuration file to host
     ansible.builtin.copy:
-        src: "{{ original_users }}"
-        dest: /etc/radicale/users
+        src: config
+        dest: "{{ radicale_user_config_path }}"
+        owner: radicale
     become: yes
 
-  - name: clone radicale docker-compose repo
-    ansible.builtin.git:
-        repo: https://github.com/tomsquest/docker-radicale.git
-        dest: "{{ repo_path }}"
-        force: no
-    when: not radicale_here.stat.exists
 
-  - name: replace docker compase file with changed one
-    ansible.builtin.copy:
-        src: docker_compose.yml
-        dest: "{{ compose_path }}"
-
-  - name: copy config file
-    ansible.builtin.copy:
-        src:  config
-        dest: "{{ radicale_config_path }}"
-
-  - name: docker compose up
-    docker_compose:
-        project_src: "{{ repo_path }}"
-
-  - name: debug msg
-    debug:
-        msg: left to do is to copy users file to /etc/radicale/users & copy old data into ~/radicale/data
+  #- name: copy config file to host
+#    ansible.builtin.copy:
+#        src: config
+#        dest:

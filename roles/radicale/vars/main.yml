@@ -1,6 +1,3 @@
-repo_path: /home/ubuntu/radicale-docker
-conf_path: /home/ubuntu/radicale-docker/config
-compose_path: /home/ubuntu/radicale-docker/docker-compose.yml
-radicale_path: /home/ubuntu/radicale
-radicale_config_path: /home/ubuntu/radicale/config/config
-original_users: /home/ml/projects/pi-ansible/private/users
+radicale_home: /home/radicale/
+radicale_user_config_path: "{{ radicale_home + '.config/radicale/'}}"
+radicale_collections_path: "{{ radicale_home + 'collections' }}"

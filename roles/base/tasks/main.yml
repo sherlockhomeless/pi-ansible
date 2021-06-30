@@ -1,0 +1,14 @@
+---
+  - name: install base programs
+    apt:
+        name: "{{ programs }}"
+        state: present
+    become: yes
+
+  - name: create radicale user/group
+    ansible.builtin.user:
+        name: radicale
+        system: yes
+        state: present
+        create_home: yes
+    become: yes

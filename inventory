@@ -1,1 +1,4 @@
-pi
+10.0.2.100
+
+[virtual]
+default ansible_host=10.0.2.100

@@ -54,15 +54,15 @@ hosts = 0.0.0.0:5232, [::]:9999
 
 # Authentication method
 # Value: none | htpasswd | remote_user | http_x_remote_user
-#type = none
+type = htpasswd
 
 # Htpasswd filename
-#htpasswd_filename = /etc/radicale/users
+htpasswd_filename = /etc/radicale/users
 
 # Htpasswd encryption method
 # Value: plain | bcrypt | md5
 # bcrypt requires the installation of radicale[bcrypt].
-#htpasswd_encryption = md5
+htpasswd_encryption = plain
 
 # Incorrect authentication delay (seconds)
 #delay = 1
@@ -89,7 +89,7 @@ hosts = 0.0.0.0:5232, [::]:9999
 
 # Folder for storing local collections, created if not present
 #filesystem_folder = /var/lib/radicale/collections
-filesystem_folder = /data/collections
+filesystem_folder = /home/radicale/collections
 
 # Delete sync token that are older (seconds)
 #max_sync_token_age = 2592000
