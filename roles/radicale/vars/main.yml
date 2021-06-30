@@ -1,3 +1,7 @@
 radicale_home: /home/radicale/
-radicale_user_config_path: "{{ radicale_home + '.config/radicale/'}}"
+radicale_config: "{{ radicale_home + '.config/radicale/'}}"
+
+radicale_user_config_path: "{{ radicale_config + 'config'}}"
+radicale_user_users_path: "{{ radicale_config + 'users'}}"
+
 radicale_collections_path: "{{ radicale_home + 'collections' }}"

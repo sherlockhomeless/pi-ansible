@@ -57,7 +57,7 @@ hosts = 0.0.0.0:5232, [::]:9999
 type = htpasswd
 
 # Htpasswd filename
-htpasswd_filename = /etc/radicale/users
+htpasswd_filename = /home/radicale/.config/radicale/users
 
 # Htpasswd encryption method
 # Value: plain | bcrypt | md5

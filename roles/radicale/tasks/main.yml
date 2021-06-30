@@ -17,16 +17,25 @@
 
   - name: create config folder
     ansible.builtin.file:
-        path: "{{ radicale_user_config_path }}"
+        path: "{{ radicale_config }}"
         owner: radicale
         state: directory
     become: yes
+
 
   - name: copy configuration file to host
     ansible.builtin.copy:
         src: config
         dest: "{{ radicale_user_config_path }}"
         owner: radicale
+    become: yes
+
+  - name: copy users file to host
+    ansible.builtin.copy:
+        src: users.secret
+        dest: "{{ radicale_user_users_path }}"
+        owner: radicale
+        mode: '0600'
     become: yes
 
 

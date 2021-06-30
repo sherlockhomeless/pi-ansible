@@ -8,7 +8,7 @@
 Vagrant.configure("2") do |config|
   config.vm.hostname = "pi-vm"
   config.vm.box = "ubuntu/focal64"
-  config.vm.network "private_network", ip: "10.0.2.100"
+  config.vm.network "private_network", ip: "192.168.0.144", hostname: true
   config.vm.provision "ansible" do |ansible|
       ansible.verbose = "vv"
       ansible.playbook = "playbook.yml"

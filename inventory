@@ -1,4 +1,4 @@
-10.0.2.100
+192.168.0.144
 
 [virtual]
-default ansible_host=10.0.2.100
+default ansible_host=192.168.0.144
