@@ -11,4 +11,5 @@
         system: yes
         state: present
         create_home: yes
+        shell: /usr/bin/bash
     become: yes
