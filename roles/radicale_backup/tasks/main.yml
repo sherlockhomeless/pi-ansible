@@ -3,8 +3,32 @@
     ansible.builtin.git:
         repo: 'https://github.com/sherlockhomeless/sysd-backup.git'
         dest: /home/radicale/sysd-backup
+    become: yes
 
+  - name: install samba-dependencies
+    ansible.builtin.apt:
+        name: "{{ programs }}"
+        state: present
+    become: yes
 
-  - name: find a solution for a remote location to store backups at
-    debug:
-        msg: continue here
+  - name: copy samba-creds
+    ansible.builtin.copy:
+        src: samba_creds.secret
+        dest: /home/ubuntu/.smbcredentials
+        owner: ubuntu
+
+  - name: create folder to mount fritznas
+    ansible.builtin.file:
+        path: "{{ fritz_nas_path }}"
+        state: directory
+        owner: ubuntu
+    become: yes
+
+  - name: mount fritznas
+    ansible.posix.mount:
+        src: //192.168.178.1/FRITZ.NAS/
+        path: "{{ fritz_nas_path }}"
+        opts: credentials=/home/ubuntu/.smbcredentials,vers=3.0,noserverino
+        state: mounted
+        fstype: cifs
+    become: yes

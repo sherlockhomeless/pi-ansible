@@ -1,4 +1,4 @@
 programs:
-    - zsh
-    - htop
-    - tmux
+    - samba
+    - cifs-utils
+fritz_nas_path: /home/ubuntu/fritz-nas

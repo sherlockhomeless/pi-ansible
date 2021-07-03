@@ -14,7 +14,5 @@
 
     - name: setup backup for radicale
       hosts: real
-      become: yes
-      become_user: radicale
       roles:
           - radicale_backup
