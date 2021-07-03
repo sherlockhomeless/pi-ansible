@@ -1,0 +1,36 @@
+---
+  - name: install pip3
+    apt:
+        name: python3-pip
+        state: present
+        update_cache: yes
+    become: yes
+
+  - name: install nginx and certbot
+    apt:
+        name: "{{ programs }}"
+        state: present
+    become: yes
+
+  - name: check if nginx-conf exists
+    stat:
+        path: "{{ conf_file_path_remote}}"
+    register: conf_exists
+
+  - name: copy nginx-conf
+    ansible.builtin.copy:
+        src: "{{ conf_file_name }}"
+        dest: "{{ conf_file_path_remote }}"
+    become: yes
+    when: not conf_exists.stat.exists
+
+  - name: reload nginx
+    debug:
+        msg: now run the following commands as root "nginx -t && nginx -s reload" and "sudo certbot --nginx -d selfhostgang.dynv6.net"
+
+  - name: enable to autorun certbot
+    ansible.builtin.cron:
+        name: "run certbot"
+        day: "31"
+        job: "/usr/bin/certbot renew --quiet"
+    become: yes

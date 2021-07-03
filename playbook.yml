@@ -1,13 +1,13 @@
 ---
     # todo: make rule "usable" or smth with all conveniet shit installing
     - name: setup general
-      hosts: virtual
-      remote_user: vagrant
+      hosts: real
       roles:
           - base
 
-    - name: install radicale
-      hosts: virtual
-      remote_user: radicale
+    - name: install radicale & setup radicale
+      hosts: real
       roles:
           - radicale
+        # - webserver
+        # - reverseproxy

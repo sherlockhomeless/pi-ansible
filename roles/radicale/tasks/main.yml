@@ -53,9 +53,21 @@
         state: directory
     become: yes
 
+  - name: copy unit file
+    ansible.builtin.copy:
+        src: radicale.service
+        dest: "{{ systemd_unit_file_path}}"
+    become: yes
+
+  - name: enable radicale via systemd
+    ansible.builtin.systemd:
+        name: radicale.service
+        enabled: yes
+    become: yes
 
 
 
+#todo: systemd service
 
 
 

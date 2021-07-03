@@ -1,4 +1,8 @@
 192.168.0.144
+192.168.178.49
 
 [virtual]
-default ansible_host=192.168.0.144
+default ansible_host=192.168.0.144 ansible_user=vagrant
+
+[real]
+pi ansible_host=192.168.178.49 ansible_user=ubuntu ansible_ssh_private_key_file=/home/ml/.ssh/raspi4_ubuntu2004

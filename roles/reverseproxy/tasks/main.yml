@@ -1,0 +1,16 @@
+---
+  - name: check if reverse-conf exists
+    stat:
+        path: "{{ conf_file_path_remote}}"
+    register: conf_exists
+
+  - name: copy nginx-conf
+    ansible.builtin.copy:
+        src: "{{ conf_file_name }}"
+        dest: "{{ conf_file_path_remote }}"
+    become: yes
+    when: not conf_exists.stat.exists
+
+  - name: reload nginx
+    shell: nginx -t && nginx -s reload
+    become: yes

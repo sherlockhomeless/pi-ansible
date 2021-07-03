@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-python3 -m radicale --storage-filesystem-folder=/home/radicale/collections/ --config=
+python3 -m radicale --storage-filesystem-folder=/home/radicale/collections/ --config=/home/radicale/config

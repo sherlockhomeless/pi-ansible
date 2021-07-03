@@ -1,0 +1,9 @@
+programs:
+    - nginx
+    - certbot
+    - python3-certbot-nginx
+
+
+conf_file_name: selfhostgang.dynv6.net.conf
+nginx_conf_path: /etc/nginx/conf.d/
+conf_file_path_remote: "{{ nginx_conf_path + 'selfhostgang.dynv6.net.conf'}}"
