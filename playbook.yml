@@ -3,11 +3,18 @@
     - name: setup general
       hosts: real
       roles:
-          - base
+        #  - base
 
     - name: install radicale & setup radicale
       hosts: real
       roles:
-          - radicale
+        #  - radicale
         # - webserver
         # - reverseproxy
+
+    - name: setup backup for radicale
+      hosts: real
+      become: yes
+      become_user: radicale
+      roles:
+          - radicale_backup

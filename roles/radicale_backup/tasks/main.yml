@@ -1,0 +1,10 @@
+---
+  - name: clone backup script
+    ansible.builtin.git:
+        repo: 'https://github.com/sherlockhomeless/sysd-backup.git'
+        dest: /home/radicale/sysd-backup
+
+
+  - name: find a solution for a remote location to store backups at
+    debug:
+        msg: continue here
